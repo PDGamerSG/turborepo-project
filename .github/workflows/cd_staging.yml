@@ -10,8 +10,7 @@ jobs:
     name: Deploying everything to the staging cluster
     steps:
       - run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" &> ~/ssh_key
-          ssh -i ~/ssh_key ubuntu@13.49.18.127
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/ssh_key chmod 600 ~/ssh_key ssh -o StrictHostKeyChecking=no -i ~/ssh_key ubuntu@13.49.18.127 << 'EOF'
           cd ~/turborepo-project && git pull
           pnpm install
           pnpm run build
