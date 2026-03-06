@@ -1,19 +1,25 @@
 name: Deploy to staging
 
 on:
-  push:
-    branches: [ main ]
+push:
+branches: [ main ]
 
 jobs:
-  redeploy_everything:
-    runs-on: ubuntu-latest
-    name: Deploying everything to the staging cluster
-    steps:
-      - run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/ssh_key chmod 600 ~/ssh_key ssh -o StrictHostKeyChecking=no -i ~/ssh_key ubuntu@13.49.18.127 << 'EOF'
-          cd ~/turborepo-project && git pull
-          pnpm install
-          pnpm run build
-          pm2 restart http-server
-          pm2 restart fe-server
-          pm2 restart ws-server
+redeploy_everything:
+runs-on: ubuntu-latest
+name: Deploying everything to the staging cluster
+steps:
+- run: |
+echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/ssh_key
+chmod 600 ~/ssh_key
+ssh -o StrictHostKeyChecking=no -i ~/ssh_key ubuntu@13.49.18.127 << 'EOF'
+cd ~/turborepo-project
+git fetch origin
+git reset --hard origin/main
+npm install -g pnpm pm2
+pnpm install
+pnpm run build
+pm2 restart http-server
+pm2 restart fe-server
+pm2 restart ws-server
+EOF
