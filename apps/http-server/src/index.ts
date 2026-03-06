@@ -24,5 +24,3 @@ app.post("/signup", async (req,res) =>{
 })
 
 app.listen(3002);
-icacls "D:\Data\Save\Keys\pdkey.pem" /remove "BUILTIN\Users"
-icacls "D:\Data\Save\Keys\pdkey.pem" op: desktop-abc123\pallab:(F)
