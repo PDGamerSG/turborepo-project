@@ -6,6 +6,7 @@ export default async function Home() {
     <div>
         hi there
         wsup boi
+        omg
     </div>
   );
 }
