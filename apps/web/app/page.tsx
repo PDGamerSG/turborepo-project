@@ -4,7 +4,7 @@ export default async function Home() {
 
   return (
     <div>
-        hi there
+        hi there from server
         wsup boi
         omg
     </div>
